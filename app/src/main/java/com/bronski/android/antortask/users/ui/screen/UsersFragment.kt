@@ -8,8 +8,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bronski.android.antortask.R
+import com.bronski.android.antortask.core.data.UserEntity
 import com.bronski.android.antortask.core.state.ViewState
 import com.bronski.android.antortask.core.ui.BaseFragment
+import com.bronski.android.antortask.core.ui.adapter.RecyclerItemListener
 import com.bronski.android.antortask.core.ui.adapter.UsersAdapter
 import com.bronski.android.antortask.databinding.FragmentUsersBinding
 import dagger.hilt.android.AndroidEntryPoint

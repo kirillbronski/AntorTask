@@ -9,7 +9,7 @@
     <dimen name="width_size_0">0dp</dimen>
     <dimen name="margin_size_4">4dp</dimen>
     <dimen name="margin_size_8">8dp</dimen>
-    <dimen name="padding_size_2">2dp</dimen>
+    <dimen name="padding_size_4">4dp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="margin_size_16">16dp</dimen>
     <dimen name="margin_size_6">6dp</dimen>

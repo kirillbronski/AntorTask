@@ -1,8 +1,5 @@
 package com.bronski.android.antortask.users.model
 
-import com.bronski.android.antortask.core.data.UserEntity
-import io.reactivex.Maybe
+import com.bronski.android.antortask.core.model.IBaseRepo
 
-interface IUsersRepo {
-    fun getAllDataFromDatabase(): Maybe<List<UserEntity>>
-}
+interface IUsersRepo : IBaseRepo

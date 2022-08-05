@@ -51,9 +51,14 @@ class UsersAdapter(
             emailTextView.text = itemUser.email
             phoneTextView.text = itemUser.phone
             deleteImageView.isVisible = showDeleteIcon
-            itemView.setOnClickListener {
-                listener?.onItemClick(itemUser = itemUser)
+            deleteImageView.apply {
+                setOnClickListener {
+                    listener?.deleteUser(itemUser = itemUser)
+                }
             }
+//            itemView.setOnClickListener {
+//                listener?.onItemClick(itemUser = itemUser)
+//            }
         }
     }
 }

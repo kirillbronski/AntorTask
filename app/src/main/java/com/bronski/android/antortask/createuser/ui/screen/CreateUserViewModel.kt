@@ -98,7 +98,7 @@ class CreateUserViewModel @Inject constructor(
 
     private fun isValidPhone(): Boolean =
         !TextUtils.isEmpty(phone.value) && Patterns.PHONE.matcher(phone.value)
-            .matches() && phone.value.length >= 13
+            .matches() && phone.value.length >= 12
 
     private fun isValidName(): Boolean =
         !TextUtils.isEmpty(name.value) && name.value.length >= 2
