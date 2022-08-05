@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -26,14 +30,54 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    defaultConfig {
+        multiDexEnabled true
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    viewBinding {
+        enabled = true
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    // Room
+    implementation 'androidx.room:room-runtime:2.4.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    annotationProcessor 'androidx.room:room-compiler:2.4.3'
+    kapt 'androidx.room:room-compiler:2.4.3'
+    implementation 'androidx.room:room-rxjava3:2.4.3'
+    //implementation 'androidx.room:room-rxjava2:2.4.3'
+
+    // Swipe to refresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.43"
+    kapt "com.google.dagger:hilt-compiler:2.43"
+
+    // RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    // Architecture Component
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+
+    // Navigation Components
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.1"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.1"
+
+    // ThreeTenABP
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
