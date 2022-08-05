@@ -7,9 +7,9 @@ import com.bronski.android.antortask.core.data.UserEntity
 import com.bronski.android.antortask.core.state.ViewState
 import com.bronski.android.antortask.createuser.model.ICreateUserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.CompletableObserver
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.CompletableObserver
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -57,17 +57,16 @@ class CreateUserViewModel @Inject constructor(
                 && isValidPhone() && isValidName())
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.dispose()
-    }
-
     fun addUser() {
-        createUserRepoImpl.addUser(UserEntity(
-            name = name.value,
-            email = email.value,
-            phone = phone.value,
-            dateAndTime = getDataAndTime()))
+        _viewState.value = ViewState.LoadingState
+        createUserRepoImpl.addUser(
+            UserEntity(
+                name = name.value,
+                email = email.value,
+                phone = phone.value,
+                dateAndTime = getDataAndTime()
+            )
+        )
             .subscribe(object : CompletableObserver {
                 override fun onSubscribe(d: Disposable) {
                     compositeDisposable.add(d)
@@ -89,12 +88,17 @@ class CreateUserViewModel @Inject constructor(
         return current.format(formatter)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
+    }
+
     private fun isValidEmail(): Boolean =
         !TextUtils.isEmpty(email.value) && Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
 
     private fun isValidPhone(): Boolean =
         !TextUtils.isEmpty(phone.value) && Patterns.PHONE.matcher(phone.value)
-            .matches() && phone.value.length >= 12
+            .matches() && phone.value.length >= 13
 
     private fun isValidName(): Boolean =
         !TextUtils.isEmpty(name.value) && name.value.length >= 2

@@ -1,18 +1,21 @@
 package com.bronski.android.antortask.core.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Flowable
+import androidx.room.*
+import io.reactivex.Completable
+import io.reactivex.Maybe
 
 @Dao
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addUser(user: UserEntity) : Completable
+    fun addUser(user: UserEntity): Completable
 
-    @Query("SELECT*FROM users ORDER BY id ASC ")
-    fun readAllData(): Flowable<MutableList<UserEntity>>
+    @Delete
+    fun deleteUser(user: UserEntity): Completable
+
+    @Query("DELETE FROM users")
+    fun deleteAllUsers(): Completable
+
+    @Query("SELECT * FROM users ORDER BY id ASC ")
+    fun readAllData(): Maybe<List<UserEntity>>
 }

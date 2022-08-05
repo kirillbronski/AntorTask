@@ -1,20 +1,26 @@
-package com.bronski.android.antortask.users.ui.screen
+package com.bronski.android.antortask.core.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bronski.android.antortask.core.data.UserEntity
-import com.bronski.android.antortask.databinding.ItemUsersBinding
+import com.bronski.android.antortask.databinding.ItemMangeUsersBinding
 
-class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
+class UsersAdapter(
+    private val listener: RecyclerItemListener? = null,
+    private val showDeleteIcon: Boolean = false,
+) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     private val usersListDiffer = AsyncListDiffer(this, DIFF_CALLBACK)
 
+    fun submitList(list: List<UserEntity>) = usersListDiffer.submitList(list)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemUsersBinding.inflate(inflater, parent, false)
+        val binding = ItemMangeUsersBinding.inflate(inflater, parent, false)
         return UsersViewHolder(binding)
     }
 
@@ -38,12 +44,16 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
     }
 
     inner class UsersViewHolder(
-        val binding: ItemUsersBinding,
+        val binding: ItemMangeUsersBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(itemUser: UserEntity) = with(binding) {
             nameTextView.text = itemUser.name
             emailTextView.text = itemUser.email
             phoneTextView.text = itemUser.phone
+            deleteImageView.isVisible = showDeleteIcon
+            itemView.setOnClickListener {
+                listener?.onItemClick(itemUser = itemUser)
+            }
         }
     }
 }

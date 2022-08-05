@@ -44,8 +44,11 @@ class CreateUserFragment : BaseFragment<FragmentCreateUserBinding>() {
                     }
                     is ViewState.ErrorState -> {
                         showToastMessage(it.message)
+                        hideProgressIndicator(binding.progressBarId.commonPb)
                     }
-                    else -> {ViewState.DefaultState}
+                    else -> {
+                        ViewState.DefaultState
+                    }
                 }
             }
         }
