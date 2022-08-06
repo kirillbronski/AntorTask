@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/usersFragment"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="Users" />
+
+    <item
+        android:id="@+id/manageFragment"
+        android:icon="@drawable/ic_baseline_manage_accounts_24"
+        android:title="Manage Users" />
+
+    <item
+        android:id="@+id/infoFragment"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="About DB" />
+
+</menu>

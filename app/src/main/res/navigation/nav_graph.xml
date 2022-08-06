@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/usersFragment">
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.bronski.android.antortask.users.ui.screen.UsersFragment"
+        android:label="Users List"
+        tools:layout="@layout/fragment_users">
+        <action
+            android:id="@+id/action_usersFragment_to_createUserFragment"
+            app:destination="@id/createUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageFragment"
+        android:name="com.bronski.android.antortask.manage.ui.screen.ManageUserFragment"
+        android:label="Mange Users"
+        tools:layout="@layout/fragment_manage">
+        <action
+            android:id="@+id/action_manageFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.bronski.android.antortask.info.ui.screen.InfoFragment"
+        android:label="About DB"
+        tools:layout="@layout/fragment_info">
+        <action
+            android:id="@+id/action_infoFragment_to_manageFragment"
+            app:destination="@id/manageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createUserFragment"
+        android:name="com.bronski.android.antortask.createuser.ui.screen.CreateUserFragment"
+        android:label="Сreate User"
+        tools:layout="@layout/fragment_create_user">
+        <action
+            android:id="@+id/action_createUserFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+    </fragment>
+</navigation>

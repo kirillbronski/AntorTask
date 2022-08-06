@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">AntorTask</string>
+    <string name="app_name">Antor Task</string>
+    <string name="total_entries">Total Entries:\u0020</string>
+    <string name="first_entry">Date of creation of the first entry:\n </string>
+    <string name="last_entry">Date of creation of the last entry:\n </string>
+    <string name="delete_all_data">Delete all Data</string>
 </resources>
