@@ -1,7 +1,5 @@
 **Test task for "Antor" company**
 
-**Github API Viewer**
-
 **Technology stack**
 
     Language - Kotlin
