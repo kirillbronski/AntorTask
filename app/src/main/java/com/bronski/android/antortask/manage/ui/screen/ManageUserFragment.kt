@@ -5,8 +5,10 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bronski.android.antortask.R
 import com.bronski.android.antortask.core.data.UserEntity
 import com.bronski.android.antortask.core.state.ViewState
 import com.bronski.android.antortask.core.ui.BaseFragment
@@ -38,7 +40,7 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllDataFromDatabase()
+        viewModel.getDataFromRoom()
     }
 
     private fun showAlertMessageDeleteUser(userEntity: UserEntity) =
@@ -48,6 +50,7 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
             .setCancelable(false)
             .setPositiveButton("Apply") { _, _ ->
                 viewModel.deleteUser(userEntity)
+                displayInfoFragment()
             }
             .setNegativeButton("Cancel") { _, _ ->
                 showToastMessage("Cancel")
@@ -89,6 +92,10 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
             layoutManager = LinearLayoutManager(requireContext())
             (itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
         }
+    }
+
+    private fun displayInfoFragment() {
+        findNavController().navigate(R.id.action_manageFragment_to_infoFragment)
     }
 
     override fun getViewBinding() = FragmentManageBinding.inflate(layoutInflater)

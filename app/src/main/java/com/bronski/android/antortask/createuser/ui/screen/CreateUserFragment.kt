@@ -35,7 +35,6 @@ class CreateUserFragment : BaseFragment<FragmentCreateUserBinding>() {
             viewModel.viewState.collect {
                 when (it) {
                     is ViewState.SuccessState -> {
-                        showToastMessage("Success")
                         hideProgressIndicator(binding.progressBarId.commonPb)
                         displayUsersFragment()
                     }

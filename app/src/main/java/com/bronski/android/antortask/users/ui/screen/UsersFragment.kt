@@ -33,7 +33,7 @@ class UsersFragment : BaseFragment<FragmentUsersBinding>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllDataFromDatabase()
+        viewModel.getDataFromRoom()
     }
 
     private fun observeOnUsersList() {
@@ -49,7 +49,6 @@ class UsersFragment : BaseFragment<FragmentUsersBinding>() {
             viewModel.viewState.collect {
                 when (it) {
                     is ViewState.SuccessState -> {
-                        showToastMessage("Success")
                         hideProgressIndicator(binding.progressBarId.commonPb)
                     }
                     is ViewState.LoadingState -> {
