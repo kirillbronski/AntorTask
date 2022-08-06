@@ -6,4 +6,4 @@ import javax.inject.Inject
 
 class UsersRepoImpl @Inject constructor(
     userDao: UserDao,
-) : BaseRepoImpl(userDao), IUsersRepo
+) : BaseRepoImpl(userDao = userDao), IUsersRepo

@@ -37,5 +37,4 @@ class RepoModule {
     fun infoRepo(userDao: UserDao): IInfoRepo {
         return InfoRepoImpl(userDao)
     }
-
 }

@@ -8,10 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bronski.android.antortask.R
-import com.bronski.android.antortask.core.data.UserEntity
 import com.bronski.android.antortask.core.state.ViewState
 import com.bronski.android.antortask.core.ui.BaseFragment
-import com.bronski.android.antortask.core.ui.adapter.RecyclerItemListener
 import com.bronski.android.antortask.core.ui.adapter.UsersAdapter
 import com.bronski.android.antortask.databinding.FragmentUsersBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +37,7 @@ class UsersFragment : BaseFragment<FragmentUsersBinding>() {
     private fun observeOnUsersList() {
         lifecycleScope.launchWhenStarted {
             viewModel.usersList.collect {
-                usersAdapter.submitList(it)
+                usersAdapter.submitList(usersList = it)
             }
         }
     }
@@ -49,14 +47,14 @@ class UsersFragment : BaseFragment<FragmentUsersBinding>() {
             viewModel.viewState.collect {
                 when (it) {
                     is ViewState.SuccessState -> {
-                        hideProgressIndicator(binding.progressBarId.commonPb)
+                        hideProgressIndicator(progressBar = binding.progressBarId.commonPb)
                     }
                     is ViewState.LoadingState -> {
-                        showProgressIndicator(binding.progressBarId.commonPb)
+                        showProgressIndicator(progressBar = binding.progressBarId.commonPb)
                     }
                     is ViewState.ErrorState -> {
-                        showToastMessage(it.message)
-                        hideProgressIndicator(binding.progressBarId.commonPb)
+                        showToastMessage(text = it.message)
+                        hideProgressIndicator(progressBar = binding.progressBarId.commonPb)
                     }
                     else -> {}
                 }

@@ -14,5 +14,4 @@ class CreateUserRepoImpl @Inject constructor(
         return userDao.addUser(userEntity)
             .observeOn(Schedulers.io()).subscribeOn(Schedulers.io())
     }
-
 }

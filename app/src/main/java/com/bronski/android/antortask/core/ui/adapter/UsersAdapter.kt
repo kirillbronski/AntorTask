@@ -16,7 +16,7 @@ class UsersAdapter(
 
     private val usersListDiffer = AsyncListDiffer(this, DIFF_CALLBACK)
 
-    fun submitList(list: List<UserEntity>) = usersListDiffer.submitList(list)
+    fun submitList(usersList: List<UserEntity>) = usersListDiffer.submitList(usersList)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -56,9 +56,6 @@ class UsersAdapter(
                     listener?.deleteUser(itemUser = itemUser)
                 }
             }
-//            itemView.setOnClickListener {
-//                listener?.onItemClick(itemUser = itemUser)
-//            }
         }
     }
 }

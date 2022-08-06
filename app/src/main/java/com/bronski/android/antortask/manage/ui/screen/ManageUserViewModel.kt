@@ -27,23 +27,38 @@ class ManageUserViewModel @Inject constructor(
     val usersList: StateFlow<List<UserEntity>> = _usersList.asStateFlow()
 
     fun getDataFromRoom() {
-        getAllDataFromDatabase(_viewState, _usersList)
+        getAllDataFromDatabase(viewState = _viewState, usersListFlow = _usersList)
     }
 
-    fun deleteUser(userEntity: UserEntity){
-        manageUserRepoImpl.deleteUser(userEntity).subscribe(object : CompletableObserver{
+    fun deleteUser(userEntity: UserEntity) {
+        manageUserRepoImpl.deleteUser(userEntity).subscribe(object : CompletableObserver {
             override fun onSubscribe(d: Disposable) {
                 compositeDisposable.add(d)
             }
 
             override fun onComplete() {
-                _viewState.value = ViewState.SuccessState
+                _viewState.value = ViewState.DeleteUserState
             }
 
             override fun onError(e: Throwable) {
-                _viewState.value = ViewState.ErrorState(e.message)
+                _viewState.value = ViewState.ErrorState(message = e.message)
+            }
+        })
+    }
+
+    fun deleteAllUsers() {
+        manageUserRepoImpl.deleteAllUsers().subscribe(object : CompletableObserver {
+            override fun onSubscribe(d: Disposable) {
+                compositeDisposable.add(d)
             }
 
+            override fun onComplete() {
+                _viewState.value = ViewState.DeleteUserState
+            }
+
+            override fun onError(e: Throwable) {
+                _viewState.value = ViewState.ErrorState(message = e.message)
+            }
         })
     }
 

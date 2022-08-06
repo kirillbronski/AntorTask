@@ -5,6 +5,6 @@ import com.bronski.android.antortask.core.model.BaseRepoImpl
 import javax.inject.Inject
 
 class InfoRepoImpl @Inject constructor(
-    private val userDao: UserDao,
-) : BaseRepoImpl(userDao) {
+    userDao: UserDao,
+) : BaseRepoImpl(userDao), IInfoRepo {
 }

@@ -35,15 +35,15 @@ class CreateUserFragment : BaseFragment<FragmentCreateUserBinding>() {
             viewModel.viewState.collect {
                 when (it) {
                     is ViewState.SuccessState -> {
-                        hideProgressIndicator(binding.progressBarId.commonPb)
+                        hideProgressIndicator(progressBar = binding.progressBarId.commonPb)
                         displayUsersFragment()
                     }
                     is ViewState.LoadingState -> {
-                        showProgressIndicator(binding.progressBarId.commonPb)
+                        showProgressIndicator(progressBar = binding.progressBarId.commonPb)
                     }
                     is ViewState.ErrorState -> {
-                        showToastMessage(it.message)
-                        hideProgressIndicator(binding.progressBarId.commonPb)
+                        showToastMessage(text = it.message)
+                        hideProgressIndicator(progressBar = binding.progressBarId.commonPb)
                     }
                     else -> {
                         ViewState.DefaultState

@@ -29,5 +29,4 @@ class MainModule {
     companion object {
         private const val DATABASE_NAME = "database"
     }
-
 }

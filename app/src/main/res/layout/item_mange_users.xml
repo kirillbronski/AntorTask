@@ -12,11 +12,12 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginEnd="@dimen/margin_size_16"
-        android:src="@drawable/ic_baseline_delete_forever_24"
         android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_baseline_delete_forever_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/name_text_view"

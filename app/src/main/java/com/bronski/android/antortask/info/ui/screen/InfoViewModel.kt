@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InfoViewModel @Inject constructor(
-    private val infoRepoImpl: IInfoRepo,
-    private val compositeDisposable: CompositeDisposable,
+    infoRepoImpl: IInfoRepo,
+    compositeDisposable: CompositeDisposable,
 ) : BaseViewModel<IBaseRepo>(infoRepoImpl, compositeDisposable) {
 
     private val _viewState = MutableStateFlow<ViewState>(ViewState.DefaultState)
@@ -25,6 +25,6 @@ class InfoViewModel @Inject constructor(
     val usersList: StateFlow<List<UserEntity>> = _usersList.asStateFlow()
 
     fun getDataFromRoom() {
-        getAllDataFromDatabase(_viewState, _usersList)
+        getAllDataFromDatabase(viewState = _viewState, usersListFlow = _usersList)
     }
 }

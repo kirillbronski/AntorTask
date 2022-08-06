@@ -77,7 +77,7 @@ class CreateUserViewModel @Inject constructor(
                 }
 
                 override fun onError(e: Throwable) {
-                    _viewState.value = ViewState.ErrorState(e.message)
+                    _viewState.value = ViewState.ErrorState(message = e.message)
                 }
             })
     }

@@ -7,4 +7,6 @@ import io.reactivex.Completable
 interface IManageUserRepo : IBaseRepo {
 
     fun deleteUser(userEntity: UserEntity): Completable
+
+    fun deleteAllUsers(): Completable
 }

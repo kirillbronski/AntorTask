@@ -27,7 +27,7 @@
         android:id="@+id/infoFragment"
         android:name="com.bronski.android.antortask.info.ui.screen.InfoFragment"
         android:label="About DB"
-        tools:layout="@layout/fragment_info" >
+        tools:layout="@layout/fragment_info">
         <action
             android:id="@+id/action_infoFragment_to_manageFragment"
             app:destination="@id/manageFragment" />

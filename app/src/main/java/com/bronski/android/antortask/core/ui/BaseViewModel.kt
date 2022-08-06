@@ -1,6 +1,5 @@
 package com.bronski.android.antortask.core.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.bronski.android.antortask.core.data.UserEntity
 import com.bronski.android.antortask.core.model.IBaseRepo
@@ -10,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.flow.MutableStateFlow
 
-abstract class BaseViewModel<T: IBaseRepo>(
+abstract class BaseViewModel<T : IBaseRepo>(
     private val repository: T,
     private val compositeDisposable: CompositeDisposable
 ) : ViewModel() {
@@ -45,5 +44,4 @@ abstract class BaseViewModel<T: IBaseRepo>(
         super.onCleared()
         compositeDisposable.dispose()
     }
-
 }

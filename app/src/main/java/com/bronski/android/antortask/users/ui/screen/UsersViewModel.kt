@@ -16,7 +16,7 @@ import javax.inject.Inject
 class UsersViewModel @Inject constructor(
     usersRepoImpl: IUsersRepo,
     compositeDisposable: CompositeDisposable,
-) : BaseViewModel<IBaseRepo>(usersRepoImpl ,compositeDisposable) {
+) : BaseViewModel<IBaseRepo>(usersRepoImpl, compositeDisposable) {
 
     private val _viewState = MutableStateFlow<ViewState>(ViewState.DefaultState)
     val viewState: StateFlow<ViewState> = _viewState.asStateFlow()
@@ -25,36 +25,6 @@ class UsersViewModel @Inject constructor(
     val usersList: StateFlow<List<UserEntity>> = _usersList.asStateFlow()
 
     fun getDataFromRoom() {
-        getAllDataFromDatabase(_viewState, _usersList)
+        getAllDataFromDatabase(viewState = _viewState, usersListFlow = _usersList)
     }
-
-//    fun getAllDataFromDatabase() {
-//        _viewState.value = ViewState.LoadingState
-//        usersRepoImpl.getAllDataFromDatabase()
-//            .subscribe(object : MaybeObserver<List<UserEntity>> {
-//                override fun onSubscribe(d: Disposable) {
-//                    compositeDisposable.add(d)
-//                }
-//
-//                override fun onSuccess(usersList: List<UserEntity>) {
-//                    Log.d("AAAAAAAA", "onSuccess: ${usersList.size}")
-//                    _usersList.value = usersList
-//                    _viewState.value = ViewState.SuccessState
-//                }
-//
-//                override fun onError(e: Throwable) {
-//                    _viewState.value = ViewState.ErrorState(e.message)
-//                }
-//
-//                override fun onComplete() {
-//                    _viewState.value = ViewState.SuccessState
-//                }
-//
-//            })
-//    }
-
-//    override fun onCleared() {
-//        super.onCleared()
-//        compositeDisposable.dispose()
-//    }
 }

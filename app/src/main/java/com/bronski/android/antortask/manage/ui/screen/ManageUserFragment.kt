@@ -1,9 +1,15 @@
 package com.bronski.android.antortask.manage.ui.screen
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -16,6 +22,7 @@ import com.bronski.android.antortask.core.ui.adapter.RecyclerItemListener
 import com.bronski.android.antortask.core.ui.adapter.UsersAdapter
 import com.bronski.android.antortask.databinding.FragmentManageBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
@@ -25,7 +32,7 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
     private val recyclerItemListener = object : RecyclerItemListener {
 
         override fun deleteUser(itemUser: UserEntity) {
-            showAlertMessageDeleteUser(itemUser)
+            showAlertMessageDeleteUser(userEntity = itemUser)
         }
     }
 
@@ -33,9 +40,29 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupOptionsMenu()
         setupAdapter()
         checkViewState()
         observeOnUsersList()
+    }
+
+    private fun setupOptionsMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.delete_all_data -> {
+                        viewModel.deleteAllUsers()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onResume() {
@@ -50,7 +77,6 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
             .setCancelable(false)
             .setPositiveButton("Apply") { _, _ ->
                 viewModel.deleteUser(userEntity)
-                displayInfoFragment()
             }
             .setNegativeButton("Cancel") { _, _ ->
                 showToastMessage("Cancel")
@@ -61,24 +87,28 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
     private fun observeOnUsersList() {
         lifecycleScope.launchWhenStarted {
             viewModel.usersList.collect {
-                usersAdapter.submitList(it)
+                usersAdapter.submitList(usersList = it)
             }
         }
     }
 
     private fun checkViewState() {
         lifecycleScope.launchWhenStarted {
-            viewModel.viewState.collect {
+            viewModel.viewState.collectLatest {
                 when (it) {
                     is ViewState.SuccessState -> {
-                        hideProgressIndicator(binding.progressBarId.commonPb)
+                        hideProgressIndicator(progressBar = binding.progressBarId.commonPb)
+                    }
+                    is ViewState.DeleteUserState -> {
+                        hideProgressIndicator(progressBar = binding.progressBarId.commonPb)
+                        displayInfoFragment()
                     }
                     is ViewState.LoadingState -> {
-                        showProgressIndicator(binding.progressBarId.commonPb)
+                        showProgressIndicator(progressBar = binding.progressBarId.commonPb)
                     }
                     is ViewState.ErrorState -> {
-                        showToastMessage(it.message)
-                        hideProgressIndicator(binding.progressBarId.commonPb)
+                        showToastMessage(text = it.message)
+                        hideProgressIndicator(progressBar = binding.progressBarId.commonPb)
                     }
                     else -> {}
                 }

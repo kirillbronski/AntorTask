@@ -12,6 +12,12 @@ class ManageUserRepoImpl @Inject constructor(
 ) : BaseRepoImpl(userDao = userDao), IManageUserRepo {
 
     override fun deleteUser(userEntity: UserEntity): Completable {
-        return userDao.deleteUser(userEntity).observeOn(Schedulers.io()).subscribeOn(Schedulers.io())
+        return userDao.deleteUser(user = userEntity)
+            .observeOn(Schedulers.io()).subscribeOn(Schedulers.io())
+    }
+
+    override fun deleteAllUsers(): Completable {
+        return userDao.deleteAllUsers()
+            .observeOn(Schedulers.io()).subscribeOn(Schedulers.io())
     }
 }
