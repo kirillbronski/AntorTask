@@ -30,7 +30,6 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
     private val viewModel by viewModels<ManageUserViewModel>()
 
     private val recyclerItemListener = object : RecyclerItemListener {
-
         override fun deleteUser(itemUser: UserEntity) {
             showAlertMessageDeleteUser(userEntity = itemUser)
         }
@@ -65,8 +64,8 @@ class ManageUserFragment : BaseFragment<FragmentManageBinding>() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         viewModel.getDataFromRoom()
     }
 

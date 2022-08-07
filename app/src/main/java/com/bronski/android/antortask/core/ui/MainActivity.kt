@@ -3,6 +3,7 @@ package com.bronski.android.antortask.core.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -22,11 +23,32 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupNavigation()
+        setBottomNavigationListener()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun setBottomNavigationListener() {
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.usersFragment -> {
+                    findNavController(R.id.nav_host_main).navigate(R.id.usersFragment)
+                    true
+                }
+                R.id.manageFragment -> {
+                    findNavController(R.id.nav_host_main).navigate(R.id.manageFragment)
+                    true
+                }
+                R.id.infoFragment -> {
+                    findNavController(R.id.nav_host_main).navigate(R.id.infoFragment)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun setupNavigation() {
